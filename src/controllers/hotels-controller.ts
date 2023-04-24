@@ -13,6 +13,19 @@ async function getAllHotels(req: AuthenticatedRequest, res: Response, next: Next
   }
 }
 
+async function getHotelById(req: AuthenticatedRequest, res: Response, next: NextFunction) {
+  const hotelId = Number(req.params.hotelId);
+
+  try {
+    const hotel = await hotelsService.getHotelById(hotelId);
+
+    return res.status(httpStatus.OK).send(hotel);
+  } catch (error) {
+    next(error);
+  }
+}
+
 export default {
   getAllHotels,
+  getHotelById,
 };
